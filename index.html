@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VictorNewb Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .box {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 12px;
+            width: 300px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #3b82f6;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h2 id="title">Login</h2>
+
+        <input id="username" placeholder="Username">
+        <input id="password" type="password" placeholder="Password">
+
+        <button onclick="auth()">Continue</button>
+
+        <p onclick="toggle()" style="cursor:pointer;color:#38bdf8;">
+            Switch Login/Signup
+        </p>
+    </div>
+
+    <script>
+        let isLogin = true;
+
+        function toggle() {
+            isLogin = !isLogin;
+            document.getElementById("title").innerText = isLogin ? "Login" : "Sign Up";
+        }
+
+        function auth() {
+            let u = document.getElementById("username").value;
+            let p = document.getElementById("password").value;
+
+            if (!u || !p) return alert("Fill all fields");
+
+            let user = JSON.parse(localStorage.getItem("user"));
+
+            if (!isLogin) {
+                localStorage.setItem("user", JSON.stringify({ username: u, password: p }));
+                alert("Account created!");
+                return;
+            }
+
+            if (!user) return alert("No account found");
+
+            if (user.username === u && user.password === p) {
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Wrong login");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
